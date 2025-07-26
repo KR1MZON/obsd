@@ -1,0 +1,72 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "team-members"
+    label: "Team Members"
+    folder: "content/team-members"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Role", name: "role", widget: "string"}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Photo", name: "photo", widget: "image"}
+      - {label: "Join Date", name: "joinDate", widget: "date"}
+      - {label: "Social Links", name: "socialLinks", widget: "object", fields: [
+          {label: "Twitter", name: "twitter", widget: "string", required: false},
+          {label: "LinkedIn", name: "linkedin", widget: "string", required: false},
+          {label: "GitHub", name: "github", widget: "string", required: false}
+        ]}
+
+  - name: "robots"
+    label: "Robots"
+    folder: "content/robots"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Robot Name", name: "name", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Weight Class", name: "weightClass", widget: "string"}
+      - {label: "Weapon Type", name: "weaponType", widget: "string"}
+      - {label: "Competition Record", name: "record", widget: "text"}
+      - {label: "Images", name: "images", widget: "list", field: {label: "Image", name: "image", widget: "image"}}
+      - {label: "Build Date", name: "buildDate", widget: "date"}
+      - {label: "Status", name: "status", widget: "select", options: ["active", "retired"]}
+
+  - name: "achievements"
+    label: "Achievements"
+    folder: "content/achievements"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Date", name: "date", widget: "date"}
+      - {label: "Competition Name", name: "competition", widget: "string"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Award Type", name: "awardType", widget: "select", options: ["Tournament Win", "Design Award", "Other"]}
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "content/settings/general.yml"
+        fields:
+          - {label: "Team Name", name: "teamName", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "About Text", name: "about", widget: "markdown"}
+          - {label: "Contact Email", name: "contactEmail", widget: "string"}
+          - {label: "Phone", name: "phone", widget: "string"}
+          - {label: "Address", name: "address", widget: "text"}
+          - {label: "Social Media", name: "socialMedia", widget: "object", fields: [
+              {label: "Facebook", name: "facebook", widget: "string", required: false},
+              {label: "Twitter", name: "twitter", widget: "string", required: false},
+              {label: "Instagram", name: "instagram", widget: "string", required: false},
+              {label: "YouTube", name: "youtube", widget: "string", required: false}
+            ]}
