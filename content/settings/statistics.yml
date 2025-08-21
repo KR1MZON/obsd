@@ -1,0 +1,60 @@
+# Site Statistics Configuration
+# This file contains all statistical data displayed across the website
+
+# About Section Statistics (Achievement Cards)
+about_achievements:
+  - icon: "FaRocket"
+    value: 50
+    suffix: "+"
+    label: "Robots Built"
+    description: "Custom-designed combat robots"
+  - icon: "FaTrophy"
+    value: 25
+    suffix: "+"
+    label: "Championships"
+    description: "Tournament victories worldwide"
+  - icon: "FaCog"
+    value: 100
+    suffix: "+"
+    label: "Competitions"
+    description: "Battles fought and won"
+  - icon: "FaUsers"
+    value: 15
+    suffix: ""
+    label: "Team Members"
+    description: "Skilled engineers and builders"
+
+# Team Section Statistics
+team_stats:
+  - icon: "FaUsers"
+    value: "Dynamic"
+    label: "Team Members"
+    description: "Based on actual team member count"
+    use_team_count: true
+  - icon: "FaCog"
+    value: 50
+    suffix: "+"
+    label: "Years Combined Experience"
+    description: "Collective expertise of our team"
+  - icon: "FaRocket"
+    value: 25
+    suffix: "+"
+    label: "Projects Completed"
+    description: "Successful robot builds and modifications"
+  - icon: "FaLightbulb"
+    value: 100
+    suffix: "+"
+    label: "Innovations Created"
+    description: "Unique solutions and improvements"
+
+# Hero Section Statistics (Quick Stats)
+hero_stats:
+  - icon: "FaRocket"
+    value: "50+"
+    label: "Robots Built"
+  - icon: "FaTrophy"
+    value: "25+"
+    label: "Championships"
+  - icon: "FaCog"
+    value: "100+"
+    label: "Competitions"

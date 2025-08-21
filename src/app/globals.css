@@ -1,26 +1,245 @@
+@import '../styles/design-system.css';
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  /* Custom volcanic colors */
+  --color-primary: #ff4500;
+  --color-primary-dark: #cc3700;
+  --color-secondary: #ff7e00; 
+  --color-accent: #ff9500;
+  --color-dark: #1a0500;
+  --color-magma: #8b0000;
+  
+  /* Background colors */
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+  
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom gradients - sleeker obsidian theme */
+  --color-volcanic-start: #0a0a0a;
+  --color-volcanic-mid: #1a1a1a;
+  --color-volcanic-end: #2a1a1a;
+  --color-ember-start: #ff4500;
+  --color-ember-end: #ff7e00;
+  --color-obsidian-start: #000000;
+  --color-obsidian-mid: #1a0500;
+  --color-obsidian-end: #8b0000;
+  
+  /* Custom animations */
+  --animate-pulse-ember: pulse-ember 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  /* Custom shadows */
+  --shadow-volcanic: 0 10px 40px rgba(255, 69, 0, 0.3);
+  --shadow-ember: 0 4px 20px rgba(255, 149, 0, 0.4);
+  --shadow-ember-lg: 0 8px 32px rgba(255, 149, 0, 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .bg-volcanic-gradient {
+    background: linear-gradient(to bottom, var(--color-obsidian-start), var(--color-volcanic-mid), var(--color-obsidian-mid));
+  }
+  
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2a1a1a 50%, #1a0500 75%, #8b0000 100%);
+  }
+  
+  .bg-footer-gradient {
+    background: linear-gradient(to top, #000000 0%, #111111 25%, #1a1a1a 50%, #2a1a1a 75%, #2a2a2a 100%);
+  }
+  
+  .bg-magma-gradient {
+    background: linear-gradient(135deg, var(--color-magma), var(--color-primary));
+  }
+  
+  .bg-ember-gradient {
+    background: linear-gradient(45deg, var(--color-ember-start), var(--color-ember-end));
+  }
+  
+  .bg-volcanic-radial {
+    background: radial-gradient(circle at center, var(--color-magma), var(--color-dark));
+  }
+  
+  .text-ember {
+    color: var(--color-accent);
+  }
+  
+  .text-magma {
+    color: var(--color-magma);
+  }
+  
+  .text-lava {
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .border-ember {
+    border-color: var(--color-accent);
+  }
+  
+  .bg-obsidian {
+    background-color: var(--color-dark);
+  }
+  
+  .shadow-volcanic {
+    box-shadow: var(--shadow-volcanic);
+  }
+  
+  .shadow-ember {
+    box-shadow: var(--shadow-ember);
+  }
+  
+  .shadow-ember-lg {
+    box-shadow: var(--shadow-ember-lg);
+  }
+  
+  /* Volcanic glow effects */
+  .glow-ember {
+    box-shadow: 0 0 20px rgba(255, 149, 0, 0.4);
+  }
+  
+  .glow-magma {
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.6);
+  }
+}
+
+/* Component classes */
+@layer components {
+  .volcanic-button {
+    @apply bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition-all duration-300 shadow-volcanic;
+  }
+  
+  .ember-link {
+    @apply text-white hover:text-accent transition-colors duration-300 relative font-medium;
+  }
+  
+  .ember-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease;
+  }
+  
+  .ember-link:hover::after {
+    width: 100%;
+  }
+  
+  .volcanic-card {
+    @apply bg-gray-900/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 shadow-ember transition-all duration-300 hover:shadow-ember-lg hover:border-accent/40;
+  }
+  
+  .volcanic-heading {
+    @apply text-accent font-bold text-xl border-b border-accent/30 pb-2;
+  }
+  
+  .ember-icon {
+    @apply text-accent transition-all duration-300;
+  }
+  
+  .ember-icon:hover {
+    @apply text-secondary transform scale-110;
+  }
+}
+
+/* Custom animations */
+@keyframes pulse-ember {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Magma particle animations for hero */
+@keyframes magma-rise {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes magma-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-primary);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--color-primary), 0 0 40px var(--color-secondary);
+  }
+}
+
+.animate-magma-rise-1 {
+  animation: magma-rise 8s linear infinite;
+}
+
+.animate-magma-rise-2 {
+  animation: magma-rise 10s linear infinite 2s;
+}
+
+.animate-magma-rise-3 {
+  animation: magma-rise 12s linear infinite 4s;
+}
+
+.animate-magma-glow {
+  animation: magma-glow 3s ease-in-out infinite;
+}
+
+.animate-pulse-ember {
+  animation: pulse-ember 2s ease-in-out infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }

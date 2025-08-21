@@ -1,11 +1,15 @@
-teamName: "Robot Warriors"
+teamName: "Obsidians"
 tagline: "Building the future of combat robotics"
 about: "We are a passionate team of engineers and builders dedicated to creating innovative fighting robots for competition."
 contactEmail: "contact@robotwarriors.com"
 phone: "+1 (555) 123-4567"
 address: "123 Tech Street, Innovation City, IC 12345"
+heroBackground: "/hero-bg.jpg"
+yearsExperience: 10
+robotsBuilt: 25
+championshipsWon: 5
 socialMedia:
-  facebook: ""
-  twitter: ""
-  instagram: ""
-  youtube: ""
+  facebook: "test"
+  twitter: "test"
+  instagram: "test"
+  youtube: "test"
