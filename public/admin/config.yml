@@ -63,20 +63,6 @@ collections:
       - {label: "Website URL", name: "website", widget: "string", required: false}
       - {label: "Tier", name: "tier", widget: "select", options: ["platinum", "gold", "silver", "bronze"], default: "bronze"}
 
-  - name: "services"
-    label: "Services"
-    folder: "content/services"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Icon Type", name: "iconType", widget: "select", options: ["design", "fabrication", "training", "competition", "maintenance", "software"]}
-      - {label: "Color", name: "color", widget: "select", options: ["red", "blue", "green", "yellow", "purple", "cyan"]}
-      - {label: "Order", name: "order", widget: "number", default: 0, value_type: "int"}
-      - {label: "Detailed Description", name: "detailedDescription", widget: "markdown", required: false}
-      - {label: "Image", name: "image", widget: "image", required: false}
-
   - name: "settings"
     label: "Site Settings"
     files:

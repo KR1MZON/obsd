@@ -43,7 +43,7 @@ export default function HeroSection({ siteSettings }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         {siteSettings.heroBackground ? (
@@ -134,10 +134,16 @@ export default function HeroSection({ siteSettings }: HeroSectionProps) {
         {/* Main heading */}
         <FadeIn delay={0.2}>
           <motion.h1 
-            className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+            className="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight"
             style={{ fontFamily: 'var(--font-family-heading)' }}
           >
-            <span className="block text-gradient-primary">
+            <span className="block text-gradient-primary font-black uppercase tracking-wider drop-shadow-2xl" style={{
+              textShadow: '0 0 30px rgba(249, 115, 22, 0.8), 0 0 60px rgba(220, 38, 38, 0.6), 0 0 90px rgba(153, 27, 27, 0.4)',
+              background: 'linear-gradient(135deg, #f97316 0%, #dc2626 50%, #991b1b 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
               {siteSettings.teamName}
             </span>
           </motion.h1>
@@ -155,28 +161,24 @@ export default function HeroSection({ siteSettings }: HeroSectionProps) {
 
         {/* CTA Buttons */}
         <FadeIn delay={0.6}>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+          <div className="flex justify-center items-center mb-16">
             <motion.button
-              className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-150 overflow-hidden"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 500, damping: 20 }}
+              onClick={() => {
+                const robotsSection = document.getElementById('robots');
+                if (robotsSection) {
+                  robotsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               <span className="relative z-10 flex items-center gap-3">
                 <FaRocket className="text-xl" />
                 Explore Our Robots
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.button>
-            
-            <motion.button
-              className="group flex items-center gap-3 px-8 py-4 border-2 border-gray-600 rounded-xl font-semibold text-lg text-gray-300 hover:border-orange-500 hover:text-white transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="w-12 h-12 rounded-full border-2 border-current flex items-center justify-center group-hover:bg-orange-500 group-hover:border-orange-500 transition-all duration-300">
-                <FaPlay className="ml-1" />
-              </div>
-              Watch Demo
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
             </motion.button>
           </div>
         </FadeIn>

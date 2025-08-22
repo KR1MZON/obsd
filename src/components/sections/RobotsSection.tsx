@@ -40,7 +40,7 @@ const RobotCard = ({ robot, index }: { robot: Robot; index: number }) => {
              src={robot.images[0]}
              alt={robot.name}
              fill
-             className="object-cover transition-transform duration-500 group-hover:scale-110"
+             className="object-cover transition-transform duration-200 group-hover:scale-110"
            />
          ) : (
            <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
@@ -195,8 +195,9 @@ export default function RobotsSection({ robots }: RobotsSectionProps) {
                         ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
                         : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-white'
                     }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 20 }}
                   >
                     {category}
                   </motion.button>
@@ -251,9 +252,19 @@ export default function RobotsSection({ robots }: RobotsSectionProps) {
         <FadeIn delay={0.8}>
           <div className="text-center mt-16">
             <motion.button
-              className="group relative px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-150 overflow-hidden"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 500, damping: 20 }}
+              onClick={() => {
+                const achievementsSection = document.getElementById('achievements');
+                if (achievementsSection) {
+                  achievementsSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  // Fallback to external competitions page if no achievements section
+                  window.open('/competitions', '_blank');
+                }
+              }}
             >
               <span className="relative z-10 flex items-center gap-3">
                 <FaEye className="text-xl" />

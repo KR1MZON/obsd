@@ -123,11 +123,11 @@ body {
 /* Component classes */
 @layer components {
   .volcanic-button {
-    @apply bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition-all duration-300 shadow-volcanic;
+    @apply bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition-all duration-150 shadow-volcanic;
   }
   
   .ember-link {
-    @apply text-white hover:text-accent transition-colors duration-300 relative font-medium;
+    @apply text-white hover:text-accent transition-colors duration-150 relative font-medium;
   }
   
   .ember-link::after {
@@ -146,7 +146,7 @@ body {
   }
   
   .volcanic-card {
-    @apply bg-gray-900/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 shadow-ember transition-all duration-300 hover:shadow-ember-lg hover:border-accent/40;
+    @apply bg-gray-900/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 shadow-ember transition-all duration-150 hover:shadow-ember-lg hover:border-accent/40;
   }
   
   .volcanic-heading {
@@ -154,7 +154,7 @@ body {
   }
   
   .ember-icon {
-    @apply text-accent transition-all duration-300;
+    @apply text-accent transition-all duration-150;
   }
   
   .ember-icon:hover {

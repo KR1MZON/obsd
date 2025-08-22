@@ -6,18 +6,15 @@ import {
   TeamSection,
   RobotsSection,
   SponsorsSection,
-  ServicesSection,
-  AchievementsSection,
-  ContactSection
+  AchievementsSection
 } from '@/components/sections';
-import { getAllTeamMembers, getAllRobots, getAllAchievements, getSiteSettings, getAllServices, getAllSponsors, getStatistics } from '@/lib/content';
+import { getAllTeamMembers, getAllRobots, getAllAchievements, getSiteSettings, getAllSponsors, getStatistics } from '@/lib/content';
 
 // Get data from CMS
 const teamMembers = getAllTeamMembers();
 const robots = getAllRobots();
 const achievements = getAllAchievements();
 const sponsors = getAllSponsors();
-const services = getAllServices();
 const siteSettings = getSiteSettings();
 const statistics = getStatistics();
 
@@ -34,7 +31,6 @@ export default function Home() {
       <AboutSection siteSettings={siteSettings} statistics={statistics} />
       <TeamSection teamMembers={teamMembers} statistics={statistics} />
       <RobotsSection robots={robots} siteSettings={siteSettings} />
-      <ServicesSection services={services} siteSettings={siteSettings} />
       <AchievementsSection achievements={achievements} siteSettings={siteSettings} />
       <SponsorsSection sponsors={sponsors} />
       <Footer siteSettings={siteSettings}/>

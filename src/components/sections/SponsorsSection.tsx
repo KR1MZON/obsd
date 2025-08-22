@@ -50,7 +50,7 @@ function AutoScrollContainer({ sponsors }: { sponsors: Sponsor[] }) {
     <div className="w-full overflow-hidden">
       <div
         ref={containerRef}
-        className="flex gap-6 transition-transform duration-0"
+        className="flex gap-6 transition-transform duration-150"
         style={{
           transform: `translateX(${translateX}px)`,
           width: `${duplicatedSponsors.length * (cardWidth + gap)}px`
@@ -72,7 +72,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const CardContent = (
     <div className="group relative p-2">
       <HoverEffect className="h-full">
-        <div className="relative h-40 w-48 bg-black/40 backdrop-blur-sm rounded-xl p-4 transition-all duration-300 group-hover:bg-black/60 group-hover:scale-105">
+        <div className="relative h-40 w-48 bg-black/40 backdrop-blur-sm rounded-xl p-4 transition-all duration-150 group-hover:bg-black/60 group-hover:scale-105">
           {/* Standardized Logo */}
           <div className="w-full h-full flex items-center justify-center">
             <img 

@@ -16,6 +16,17 @@ interface AboutSectionProps {
     yearsExperience: number;
     robotsBuilt: number;
     championshipsWon: number;
+    aboutSection?: {
+      sectionTitle: string;
+      sectionDescription: string;
+      missionTitle: string;
+      missionDescription: string;
+      features: Array<{
+        icon: string;
+        title: string;
+        description: string;
+      }>;
+    };
     socialMedia?: {
       platform: string;
       url: string;
@@ -42,23 +53,7 @@ const iconMap: { [key: string]: any } = {
   FaShieldAlt
 };
 
-const features = [
-  {
-    icon: FaLightbulb,
-    title: 'Innovation',
-    description: 'Cutting-edge designs and engineering solutions that push the boundaries of combat robotics.'
-  },
-  {
-    icon: FaShieldAlt,
-    title: 'Durability',
-    description: 'Built to withstand the most intense battles with premium materials and robust construction.'
-  },
-  {
-    icon: FaCog,
-    title: 'Precision',
-    description: 'Every component is meticulously crafted for optimal performance and reliability in competition.'
-  }
-];
+// Features will be loaded from CMS data
 
 export default function AboutSection({ siteSettings, statistics }: AboutSectionProps) {
   // Convert statistics data to use proper icons
@@ -66,6 +61,18 @@ export default function AboutSection({ siteSettings, statistics }: AboutSectionP
     ...achievement,
     icon: iconMap[achievement.icon] || FaCog
   }));
+  
+  // Get features from CMS or use fallback
+  const features = siteSettings.aboutSection?.features?.map(feature => ({
+    ...feature,
+    icon: iconMap[feature.icon] || FaCog
+  })) || [];
+  
+  // Get section content from CMS with fallbacks
+  const sectionTitle = siteSettings.aboutSection?.sectionTitle || 'Engineering Excellence';
+  const sectionDescription = siteSettings.aboutSection?.sectionDescription || 'We are a team of passionate engineers and builders dedicated to pushing the boundaries of combat robotics through innovation, precision, and relentless pursuit of excellence.';
+  const missionTitle = siteSettings.aboutSection?.missionTitle || 'Our Mission';
+  const missionDescription = siteSettings.aboutSection?.missionDescription || 'Every robot we create is a testament to our commitment to precision engineering, innovative design, and the relentless pursuit of victory. We don\'t just build robots – we craft legends.';
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -132,13 +139,13 @@ export default function AboutSection({ siteSettings, statistics }: AboutSectionP
           
           <FadeIn delay={0.2}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gradient-primary" style={{ fontFamily: 'var(--font-family-heading)' }}>
-              Engineering Excellence
+              {sectionTitle}
             </h2>
           </FadeIn>
           
           <FadeIn delay={0.3}>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              We are a team of passionate engineers and builders dedicated to pushing the boundaries of combat robotics through innovation, precision, and relentless pursuit of excellence.
+              {sectionDescription}
             </p>
           </FadeIn>
         </div>
@@ -150,13 +157,13 @@ export default function AboutSection({ siteSettings, statistics }: AboutSectionP
             <FadeIn delay={0.4}>
               <div className="space-y-6">
                 <h3 className="text-3xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-family-heading)' }}>
-                  Our Mission
+                  {missionTitle}
                 </h3>
                 <p className="text-lg text-gray-300 leading-relaxed">
                   {siteSettings.about || "We design, build, and compete with cutting-edge combat robots that showcase the pinnacle of engineering excellence. Our team combines years of experience with innovative thinking to create machines that dominate the competition arena."}
                 </p>
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Every robot we create is a testament to our commitment to precision engineering, innovative design, and the relentless pursuit of victory. We don't just build robots – we craft legends.
+                  {missionDescription}
                 </p>
               </div>
             </FadeIn>
@@ -164,7 +171,7 @@ export default function AboutSection({ siteSettings, statistics }: AboutSectionP
             {/* Features */}
             <FadeIn delay={0.5}>
               <div className="space-y-6">
-                {features.map((feature, index) => (
+                {features && features.length > 0 && features.map((feature, index) => (
                   <motion.div
                     key={index}
                     className="flex items-start gap-4 p-4 rounded-xl glass-effect hover-lift"
@@ -255,9 +262,10 @@ export default function AboutSection({ siteSettings, statistics }: AboutSectionP
         <FadeIn delay={0.9}>
           <div className="text-center mt-16">
             <motion.button
-              className="group relative px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-150 overflow-hidden"
+              whileHover={{ scale: 1.02, y: -8 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
               <span className="relative z-10 flex items-center gap-3">
                 <FaRocket className="text-xl" />

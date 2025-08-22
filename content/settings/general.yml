@@ -8,6 +8,24 @@ heroBackground: "/hero-bg.jpg"
 yearsExperience: 10
 robotsBuilt: 25
 championshipsWon: 5
+
+# About Section Content
+aboutSection:
+  sectionTitle: "Engineering Excellence"
+  sectionDescription: "We are a team of passionate engineers and builders dedicated to pushing the boundaries of combat robotics through innovation, precision, and relentless pursuit of excellence."
+  missionTitle: "Our Mission"
+  missionDescription: "Every robot we create is a testament to our commitment to precision engineering, innovative design, and the relentless pursuit of victory. We don't just build robots – we craft legends."
+  features:
+    - icon: "FaLightbulb"
+      title: "Innovation"
+      description: "Cutting-edge designs and engineering solutions that push the boundaries of combat robotics."
+    - icon: "FaShieldAlt"
+      title: "Durability"
+      description: "Built to withstand the most intense battles with premium materials and robust construction."
+    - icon: "FaCog"
+      title: "Precision"
+      description: "Every component is meticulously crafted for optimal performance and reliability in competition."
+
 socialMedia:
   facebook: "test"
   twitter: "test"

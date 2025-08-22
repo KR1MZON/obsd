@@ -4,6 +4,7 @@ description: Expert fabrication services using high-quality materials and precis
 iconType: fabrication
 color: red
 order: 2
+image: /images/placeholder-service.svg
 detailedDescription: |
   We bring your robot designs to life with our state-of-the-art fabrication facilities. Our team has expertise in working with various materials including aluminum, titanium, hardened steel, and composites.
 
@@ -13,5 +14,4 @@ detailedDescription: |
   - Weapon system manufacturing
   - Frame construction
   - Assembly and integration
-image: /uploads/fabrication-service.jpg
 ---

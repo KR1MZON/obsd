@@ -78,7 +78,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
     >
       {/* Larger Artistic Card Container */}
       <motion.div 
-        className="relative w-80 h-96 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-slate-700/60 hover:border-orange-500/50 transition-all duration-300 group-hover:shadow-orange-500/30 overflow-hidden"
+        className="relative w-80 h-96 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-slate-700/60 hover:border-orange-500/50 transition-all duration-150 group-hover:shadow-orange-500/30 overflow-hidden"
         whileHover={{ scale: 1.05, rotateY: 3, rotateX: 2 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
@@ -97,7 +97,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
               alt={member.name}
               width={160}
               height={160}
-              className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-0"
+              className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-150"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/team-member-placeholder.jpeg';
               }}
@@ -120,7 +120,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
         {/* Member Info - Enhanced */}
         <div className="text-center space-y-3 mb-6">
           <motion.h3 
-            className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-0"
+            className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-150"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
@@ -128,7 +128,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
           </motion.h3>
           
           <motion.p 
-            className="text-slate-400 font-medium text-base tracking-wide group-hover:text-orange-300 transition-colors duration-0"
+            className="text-slate-400 font-medium text-base tracking-wide group-hover:text-orange-300 transition-colors duration-150"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
@@ -151,7 +151,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-xl bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm flex items-center justify-center text-slate-300 hover:from-orange-500 hover:to-red-500 hover:text-white transition-all duration-0 shadow-lg border border-slate-600/40 hover:border-orange-400/60 hover:shadow-orange-500/30"
+                  className="w-12 h-12 rounded-xl bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm flex items-center justify-center text-slate-300 hover:from-orange-500 hover:to-red-500 hover:text-white transition-all duration-150 shadow-lg border border-slate-600/40 hover:border-orange-400/60 hover:shadow-orange-500/30"
                   whileHover={{ scale: 1.15, rotate: 8, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 1, scale: 1 }}
@@ -351,6 +351,15 @@ export default function TeamSection({ teamMembers, statistics }: TeamSectionProp
               className="group relative px-8 py-4 bg-gradient-to-r from-red-800 to-orange-900 rounded-xl font-semibold text-lg text-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  // Fallback to email if no contact section
+                  window.location.href = 'mailto:contact@robotwarriors.com?subject=Join Our Team';
+                }
+              }}
             >
               <span className="relative z-10 flex items-center gap-3">
                 <FaEnvelope className="text-xl" />

@@ -44,9 +44,19 @@ export function getAllTeamMembers() {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data } = matter(fileContents);
     
+    // Transform socialLinks object to socialMedia array
+    let socialMedia = [];
+    if (data.socialLinks) {
+      socialMedia = Object.entries(data.socialLinks).map(([platform, url]) => ({
+        platform,
+        url: url as string
+      }));
+    }
+    
     return {
       id,
       ...data,
+      socialMedia,
     };
   }).sort((a: any, b: any) => {
     // Sort by join date (newest first)

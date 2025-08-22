@@ -123,15 +123,15 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
         </div>
       )}
       
-      <div className="relative h-full glass-effect rounded-2xl overflow-hidden border border-gray-700/50 group-hover:border-orange-500/50 transition-all duration-500">
+      <div className="relative h-full glass-effect rounded-2xl overflow-hidden border border-gray-700/50 group-hover:border-orange-500/50 transition-all duration-200">
         {/* Background gradient */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 group-hover:opacity-10 transition-opacity duration-200`} />
         
         {/* Content */}
         <div className="relative p-8 h-full flex flex-col">
           {/* Icon */}
           <div className="mb-6">
-            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
               <service.icon className="text-white text-2xl" />
             </div>
           </div>
@@ -183,9 +183,10 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
               service.popular 
                 ? 'bg-gradient-to-r from-orange-500 to-red-500 shadow-lg' 
                 : 'bg-gray-800 hover:bg-gray-700'
-            }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+              }`}
+            whileHover={{ scale: 1.02, y: -8 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               Get Started

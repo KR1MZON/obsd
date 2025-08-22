@@ -163,7 +163,7 @@ export default function ContactSection({ siteSettings }: ContactSectionProps) {
                       onChange={handleChange}
                       placeholder="Your Name *"
                       required
-                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-300 text-sm"
+                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-150 text-sm"
                     />
                   </div>
                   <div>
@@ -176,7 +176,7 @@ export default function ContactSection({ siteSettings }: ContactSectionProps) {
                       onChange={handleChange}
                       placeholder="Your Email *"
                       required
-                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-300 text-sm"
+                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-150 text-sm"
                     />
                   </div>
                   <div>
@@ -187,7 +187,7 @@ export default function ContactSection({ siteSettings }: ContactSectionProps) {
                       value={formState.subject}
                       onChange={handleChange}
                       required
-                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-300 text-sm"
+                      className="w-full bg-gray-800/80 border border-gray-700/80 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-gradient-to-r from-red-500 to-orange-400 focus:border-transparent transition-all duration-150 text-sm"
                     >
                       <option value="" disabled>Subject *</option>
                       <option value="General Inquiry">General Inquiry</option>
@@ -200,12 +200,14 @@ export default function ContactSection({ siteSettings }: ContactSectionProps) {
                     <motion.button
                       whileHover={{ 
                         scale: 1.02,
+                        y: -1,
                         boxShadow: "0 0 15px 2px rgba(255, 100, 50, 0.3)"
                       }}
-                      whileTap={{ scale: 0.98 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 20 }}
                       type="submit"
                       disabled={isSubmitting}
-                      className={`w-full text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 text-sm ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                      className={`w-full text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-150 text-sm ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                       style={{
                         background: "linear-gradient(to right, #ff4d4d, #ff9500)",
                         backgroundSize: "200% auto"

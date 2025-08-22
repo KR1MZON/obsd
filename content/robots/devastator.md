@@ -5,8 +5,8 @@ weightClass: "Heavyweight (250 lbs)"
 weaponType: "Vertical Spinner"
 record: "15 wins - 3 losses"
 images:
-  - "/uploads/devastator-1.jpg"
-  - "/uploads/devastator-2.jpg"
+  - "/images/placeholder-robot.svg"
+  - "/images/placeholder-robot.svg"
 buildDate: "2021-05-18"
 status: "active"
 ---

@@ -42,12 +42,20 @@ export default function Header({ siteSettings }: HeaderProps) {
     { name: 'Team', href: '#team' },
     { name: 'Robots', href: '#robots' },
     { name: 'Achievements', href: '#achievements' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Sponsors', href: '#sponsors' },
+    { name: 'Contact', href: '#footer' },
   ];
+
+  const handleNavClick = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled 
           ? 'py-4 shadow-2xl border-b' 
           : 'bg-transparent py-6'
@@ -90,7 +98,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                 alt="Obsidians Logo"
                 width={64}
                 height={64}
-                className="object-contain filter brightness-125 contrast-125 group-hover:brightness-150 transition-all duration-300"
+                className="object-contain filter brightness-125 contrast-125 group-hover:brightness-150 transition-all duration-150"
               />
               {/* Rotating glow ring */}
               <motion.div
@@ -110,22 +118,22 @@ export default function Header({ siteSettings }: HeaderProps) {
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link, index) => (
             <FadeIn key={link.name} direction="down" delay={0.1 * index} duration={0.5}>
-              <Link
-                href={link.href}
-                className="text-white hover:text-accent transition-colors duration-300 font-medium relative group"
+              <button
+                onClick={() => handleNavClick(link.href)}
+                className="text-white hover:text-accent transition-colors duration-150 font-medium relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-              </Link>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-150 group-hover:w-full"></span>
+              </button>
             </FadeIn>
           ))}
           <FadeIn direction="down" delay={0.6} duration={0.5}>
-            <Link
-              href="#contact"
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-primary text-white px-6 py-2 rounded-full transition-all duration-300 font-medium shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transform hover:scale-105"
+            <button
+              onClick={() => handleNavClick('#footer')}
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-primary text-white px-6 py-2 rounded-full transition-all duration-150 font-medium shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transform hover:scale-105"
             >
               Join Our Team
-            </Link>
+            </button>
           </FadeIn>
         </nav>
 
@@ -133,7 +141,7 @@ export default function Header({ siteSettings }: HeaderProps) {
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white focus:outline-none hover:text-accent transition-colors duration-300"
+            className="text-white focus:outline-none hover:text-accent transition-colors duration-150"
             aria-label="Toggle menu"
           >
             <svg
@@ -182,13 +190,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index }}
                   >
-                    <Link
-                      href={link.href}
-                      className="text-white hover:text-accent transition-colors duration-300 block py-2 font-medium border-b border-gray-800 hover:border-accent"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                    <button
+                      onClick={() => {
+                        handleNavClick(link.href);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="text-white hover:text-accent transition-colors duration-300 block py-2 font-medium border-b border-gray-800 hover:border-accent w-full text-left"
                     >
                       {link.name}
-                    </Link>
+                    </button>
                   </motion.div>
                 ))}
                 <motion.div
@@ -196,13 +206,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <Link
-                    href="#contact"
+                  <button
+                    onClick={() => {
+                      handleNavClick('#footer');
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-primary text-white px-6 py-2 rounded-full transition-all duration-300 inline-block mt-2 font-medium shadow-lg shadow-orange-500/25"
-                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Join Our Team
-                  </Link>
+                  </button>
                 </motion.div>
               </nav>
             </div>

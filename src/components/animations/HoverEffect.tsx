@@ -34,8 +34,8 @@ export default function HoverEffect({
       }}
       transition={{
         type: 'spring',
-        stiffness: 300,
-        damping: 15,
+        stiffness: 500,
+        damping: 20,
       }}
       style={{ willChange: 'transform, filter, box-shadow' }}
     >

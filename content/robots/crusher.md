@@ -5,8 +5,8 @@ weightClass: "Middleweight (120 lbs)"
 weaponType: "Hydraulic Crusher"
 record: "8 wins - 4 losses"
 images:
-  - "/uploads/crusher-1.jpg"
-  - "/uploads/crusher-2.jpg"
+  - "/images/placeholder-robot.svg"
+  - "/images/placeholder-robot.svg"
 buildDate: "2022-08-15"
 status: "active"
 ---

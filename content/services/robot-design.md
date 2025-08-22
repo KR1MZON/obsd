@@ -4,6 +4,7 @@ description: Professional design services for combat robots of all weight classe
 iconType: design
 color: blue
 order: 1
+image: /images/placeholder-service.svg
 detailedDescription: |
   Our team of experienced engineers provides comprehensive design services for combat robots. We use the latest CAD software to create detailed 3D models and blueprints for your robot. Our designs focus on durability, weight optimization, and effective weapon systems.
 
@@ -13,5 +14,4 @@ detailedDescription: |
   - Structural analysis
   - Weight distribution optimization
   - Weapon system design
-image: /uploads/design-service.jpg
 ---

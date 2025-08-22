@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link'; // Removed - using scroll behavior instead
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FadeIn } from '../animations';
@@ -50,7 +50,7 @@ export default function Footer({ siteSettings }: FooterProps) {
   ];
 
   return (
-    <footer className="text-white py-16 border-t border-accent/20 relative overflow-hidden">
+    <footer id="footer" className="text-white py-16 border-t border-accent/20 relative overflow-hidden">
       {/* Enhanced magma/lava background with metallic tones (matching hero) */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-red-950 z-0"></div>
       <div className="absolute inset-0 bg-gradient-to-t from-orange-950/40 via-red-900/20 to-transparent z-5"></div>
@@ -118,7 +118,7 @@ export default function Footer({ siteSettings }: FooterProps) {
         ))}
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           
           {/* Brand Section */}
@@ -141,7 +141,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                 <h3 className="text-xl font-bold">
                   {siteSettings?.teamName ? (
                     <motion.span 
-                      className="text-accent hover:text-lava transition-all duration-300"
+                      className="text-accent hover:text-lava transition-all duration-150"
                       whileHover={{ scale: 1.05 }}
                     >
                       {siteSettings.teamName}
@@ -292,11 +292,16 @@ export default function Footer({ siteSettings }: FooterProps) {
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
-                      <Link 
-                        href={link.href} 
-                        className="text-gray-300 hover:text-white relative group flex items-center"
+                      <button 
+                        onClick={() => {
+                          const element = document.getElementById(link.href.replace('#', ''));
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                        className="text-gray-300 hover:text-white relative group flex items-center w-full text-left"
                       >
-                        <span className="absolute left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                         <span className="group-hover:translate-x-2 transition-transform duration-300">{link.name}</span>
                         <motion.span 
                           className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -305,7 +310,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                         >
                           →
                         </motion.span>
-                      </Link>
+                      </button>
                     </motion.div>
                   </li>
                 ))}
@@ -418,7 +423,8 @@ export default function Footer({ siteSettings }: FooterProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
               </motion.div>
-              <span className="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm">
+              <span className="text-gray-300 hover:text-white relative group-hover:text-white transition-all duration-300 text-sm">
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                 {siteSettings?.address || 'The Forge, Innovation District'}
               </span>
             </motion.div>

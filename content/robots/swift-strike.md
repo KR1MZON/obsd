@@ -5,8 +5,8 @@ weightClass: "Lightweight (60 lbs)"
 weaponType: "Horizontal Spinner"
 record: "12 wins - 2 losses"
 images:
-  - "/uploads/swift-strike-1.jpg"
-  - "/uploads/swift-strike-2.jpg"
+  - "/images/placeholder-robot.svg"
+  - "/images/placeholder-robot.svg"
 buildDate: "2022-03-10"
 status: "active"
 ---

@@ -206,7 +206,7 @@ function AchievementCard({ achievement, isEven }: { achievement: Achievement; is
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <div className="bg-gradient-to-br from-gray-900 to-black border border-orange-500/20 rounded-lg p-6 shadow-2xl hover:shadow-orange-500/10 transition-all duration-300">
+        <div className="bg-gradient-to-br from-gray-900 to-black border border-orange-500/20 rounded-lg p-6 shadow-2xl hover:shadow-orange-500/10 transition-all duration-150">
           <div className="flex items-center mb-4">
             <div className="text-2xl mr-3">
               {getAwardIcon(achievement.awardType)}

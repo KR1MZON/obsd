@@ -4,6 +4,7 @@ description: Custom software solutions for robot control, automation, and teleme
 iconType: software
 color: cyan
 order: 6
+image: /images/placeholder-service.svg
 detailedDescription: |
   Our software team develops custom solutions for combat robots, focusing on control systems, automation, and real-time telemetry to give you the competitive edge.
 
@@ -14,5 +15,4 @@ detailedDescription: |
   - Remote diagnostics
   - Performance analysis tools
   - User interface design for operators
-image: /uploads/software-service.jpg
 ---
