@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn, Parallax } from '../animations';
 import { FaPlay, FaArrowDown, FaRocket, FaCog, FaTrophy } from 'react-icons/fa';
@@ -11,13 +12,28 @@ interface HeroSectionProps {
     tagline: string;
     heroBackground?: string;
   };
+  statistics: {
+    core_stats: Record<string, {
+      value: string | number;
+      use_robot_count?: boolean;
+      use_team_count?: boolean;
+      display_suffix?: string;
+      description?: string;
+    }>;
+    hero_stats: Array<{
+      icon: string;
+      stat_key: string;
+      label: string;
+    }>;
+  };
 }
 
-const stats = [
-  { icon: FaRocket, value: '50+', label: 'Robots Built' },
-  { icon: FaTrophy, value: '25+', label: 'Championships' },
-  { icon: FaCog, value: '100+', label: 'Competitions' },
-];
+// Icon mapping for dynamic icon loading
+const iconMap: { [key: string]: any } = {
+  FaRocket,
+  FaTrophy,
+  FaCog
+};
 
 const floatingElements = [
   { id: 1, size: 'w-2 h-2', delay: 0, duration: 8 },
@@ -27,11 +43,31 @@ const floatingElements = [
   { id: 5, size: 'w-2.5 h-2.5', delay: 3, duration: 9 },
 ];
 
-export default function HeroSection({ siteSettings }: HeroSectionProps) {
+export default function HeroSection({ siteSettings, statistics }: HeroSectionProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  // Convert statistics data to use proper icons and resolve stat values
+  const stats = statistics.hero_stats.map(stat => {
+    const statData = statistics.core_stats[stat.stat_key];
+    let displayValue = statData?.value || 0;
+    
+    // Handle dynamic calculations
+    if (statData?.use_robot_count) {
+      displayValue = 3; // Current robot count from content/robots
+    } else if (statData?.use_team_count) {
+      displayValue = 5; // Current team member count from content/team-members
+    }
+    
+    return {
+      ...stat,
+      icon: iconMap[stat.icon] || FaCog,
+      value: `${displayValue}${statData?.display_suffix || ''}`,
+      description: statData?.description || ''
+    };
+  });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -134,18 +170,34 @@ export default function HeroSection({ siteSettings }: HeroSectionProps) {
         {/* Main heading */}
         <FadeIn delay={0.2}>
           <motion.h1 
-            className="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight"
-            style={{ fontFamily: 'var(--font-family-heading)' }}
+            className="text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight"
+            style={{ 
+              fontFamily: 'Georgia, "Times New Roman", serif',
+              fontWeight: '700',
+              letterSpacing: '0.05em'
+            }}
           >
-            <span className="block text-gradient-primary font-black uppercase tracking-wider drop-shadow-2xl" style={{
-              textShadow: '0 0 30px rgba(249, 115, 22, 0.8), 0 0 60px rgba(220, 38, 38, 0.6), 0 0 90px rgba(153, 27, 27, 0.4)',
-              background: 'linear-gradient(135deg, #f97316 0%, #dc2626 50%, #991b1b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              {siteSettings.teamName}
-            </span>
+            <motion.div
+              whileHover={{ 
+                scale: 1.05,
+                filter: 'brightness(1.4) contrast(1.3) drop-shadow(0 0 40px rgba(251, 146, 60, 1)) drop-shadow(0 0 80px rgba(249, 115, 22, 0.7))'
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <Image
+                src="/logo_text.png"
+                alt={siteSettings.teamName}
+                width={800}
+                height={200}
+                className="object-contain mx-auto filter brightness-125 contrast-125"
+                style={{
+                  filter: 'brightness(1.3) contrast(1.2) drop-shadow(0 0 30px rgba(251, 146, 60, 0.8)) drop-shadow(0 0 60px rgba(249, 115, 22, 0.5))',
+                  maxWidth: '100%',
+                  height: 'auto'
+                }}
+                priority
+              />
+            </motion.div>
           </motion.h1>
         </FadeIn>
 

@@ -11,7 +11,6 @@ interface Sponsor {
   description: string;
   image?: string;
   website?: string;
-  tier?: 'platinum' | 'gold' | 'silver' | 'bronze';
 }
 
 interface SponsorsSectionProps {

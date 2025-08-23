@@ -13,9 +13,6 @@ interface AboutSectionProps {
     contactEmail?: string;
     phone?: string;
     address?: string;
-    yearsExperience: number;
-    robotsBuilt: number;
-    championshipsWon: number;
     aboutSection?: {
       sectionTitle: string;
       sectionDescription: string;
@@ -33,12 +30,19 @@ interface AboutSectionProps {
     }[];
   };
   statistics: {
+    core_stats: {
+      [key: string]: {
+        value: number | string;
+        display_suffix: string;
+        description: string;
+        use_robot_count?: boolean;
+        use_team_count?: boolean;
+      };
+    };
     about_achievements: Array<{
       icon: string;
-      value: number;
-      suffix: string;
+      stat_key: string;
       label: string;
-      description: string;
     }>;
   };
 }
@@ -56,11 +60,26 @@ const iconMap: { [key: string]: any } = {
 // Features will be loaded from CMS data
 
 export default function AboutSection({ siteSettings, statistics }: AboutSectionProps) {
-  // Convert statistics data to use proper icons
-  const achievements = statistics.about_achievements.map(achievement => ({
-    ...achievement,
-    icon: iconMap[achievement.icon] || FaCog
-  }));
+  // Convert statistics data to use proper icons and resolve stat values
+  const achievements = statistics.about_achievements.map(achievement => {
+    const statData = statistics.core_stats[achievement.stat_key];
+    let displayValue = statData?.value || 0;
+    
+    // Handle dynamic calculations
+    if (statData?.use_robot_count) {
+      displayValue = 3; // Current robot count from content/robots
+    } else if (statData?.use_team_count) {
+      displayValue = 5; // Current team member count from content/team-members
+    }
+    
+    return {
+      ...achievement,
+      icon: iconMap[achievement.icon] || FaCog,
+      value: typeof displayValue === 'string' ? parseInt(displayValue) || 0 : displayValue,
+      suffix: statData?.display_suffix || '',
+      description: statData?.description || ''
+    };
+  });
   
   // Get features from CMS or use fallback
   const features = siteSettings.aboutSection?.features?.map(feature => ({

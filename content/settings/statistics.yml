@@ -1,60 +1,84 @@
 # Site Statistics Configuration
 # This file contains all statistical data displayed across the website
+# All statistics are centralized here to avoid duplications
+
+# Core Statistics - Single source of truth
+core_stats:
+  robots_built:
+    value: "Dynamic"
+    use_robot_count: true
+    display_suffix: "+"
+    description: "Custom-designed combat robots"
+  
+  championships:
+    value: 25
+    display_suffix: "+"
+    description: "Tournament victories worldwide"
+  
+  competitions:
+    value: 100
+    display_suffix: "+"
+    description: "Battles fought and won"
+  
+  team_members:
+    value: "Dynamic"
+    use_team_count: true
+    display_suffix: ""
+    description: "Skilled engineers and builders"
+  
+  years_experience:
+    value: 50
+    display_suffix: "+"
+    description: "Years of combined team experience"
+  
+  projects_completed:
+    value: 25
+    display_suffix: "+"
+    description: "Successful robot builds and modifications"
+  
+  innovations_created:
+    value: 100
+    display_suffix: "+"
+    description: "Unique solutions and improvements"
 
 # About Section Statistics (Achievement Cards)
 about_achievements:
   - icon: "FaRocket"
-    value: 50
-    suffix: "+"
+    stat_key: "robots_built"
     label: "Robots Built"
-    description: "Custom-designed combat robots"
   - icon: "FaTrophy"
-    value: 25
-    suffix: "+"
+    stat_key: "championships"
     label: "Championships"
-    description: "Tournament victories worldwide"
   - icon: "FaCog"
-    value: 100
-    suffix: "+"
+    stat_key: "competitions"
     label: "Competitions"
-    description: "Battles fought and won"
   - icon: "FaUsers"
-    value: 15
-    suffix: ""
+    stat_key: "team_members"
     label: "Team Members"
-    description: "Skilled engineers and builders"
 
 # Team Section Statistics
 team_stats:
   - icon: "FaUsers"
-    value: "Dynamic"
+    stat_key: "team_members"
     label: "Team Members"
-    description: "Based on actual team member count"
-    use_team_count: true
   - icon: "FaCog"
-    value: 50
-    suffix: "+"
+    stat_key: "years_experience"
     label: "Years Combined Experience"
-    description: "Collective expertise of our team"
   - icon: "FaRocket"
-    value: 25
-    suffix: "+"
+    stat_key: "projects_completed"
     label: "Projects Completed"
-    description: "Successful robot builds and modifications"
   - icon: "FaLightbulb"
-    value: 100
-    suffix: "+"
+    stat_key: "innovations_created"
     label: "Innovations Created"
-    description: "Unique solutions and improvements"
 
 # Hero Section Statistics (Quick Stats)
 hero_stats:
   - icon: "FaRocket"
-    value: "50+"
+    stat_key: "robots_built"
     label: "Robots Built"
   - icon: "FaTrophy"
-    value: "25+"
+    stat_key: "championships"
     label: "Championships"
   - icon: "FaCog"
-    value: "100+"
+    stat_key: "competitions"
     label: "Competitions"

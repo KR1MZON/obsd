@@ -3,13 +3,13 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FadeIn, Parallax } from '../animations';
-import { FaLinkedin, FaTwitter, FaGithub, FaEnvelope, FaCog, FaRocket, FaUsers, FaLightbulb, FaTrophy } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaGithub, FaEnvelope, FaCog, FaRocket, FaUsers, FaLightbulb, FaTrophy, FaCalendar } from 'react-icons/fa';
 
 interface TeamMember {
   name: string;
   role: string;
-  bio: string;
   image?: string;
+  joinDate?: string;
   socialMedia?: {
     platform: string;
     url: string;
@@ -19,13 +19,19 @@ interface TeamMember {
 interface TeamSectionProps {
   teamMembers: TeamMember[];
   statistics: {
+    core_stats: {
+      [key: string]: {
+        value: number | string;
+        display_suffix: string;
+        description: string;
+        use_robot_count?: boolean;
+        use_team_count?: boolean;
+      };
+    };
     team_stats: Array<{
       icon: string;
-      value: number | string;
-      suffix?: string;
+      stat_key: string;
       label: string;
-      description: string;
-      use_team_count?: boolean;
     }>;
   };
 }
@@ -134,6 +140,18 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
           >
             {member.role}
           </motion.p>
+          
+          {/* Join Date */}
+          {member.joinDate && (
+            <motion.div 
+              className="flex items-center justify-center gap-2 text-slate-500 text-sm group-hover:text-orange-400 transition-colors duration-150"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <FaCalendar className="text-xs" />
+              <span>Joined {new Date(member.joinDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+            </motion.div>
+          )}
         </div>
         
         {/* Always Visible Social Media Icons */}
@@ -191,19 +209,23 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
 };
 
 export default function TeamSection({ teamMembers, statistics }: TeamSectionProps) {
-  // Convert statistics data to use proper icons and handle dynamic values
+  // Convert statistics data to use proper icons and resolve stat values
   const teamStats = statistics.team_stats.map(stat => {
-    let displayValue = stat.value;
+    const statData = statistics.core_stats[stat.stat_key];
+    let displayValue = statData?.value || 0;
     
-    // Handle dynamic team member count
-    if (stat.use_team_count) {
+    // Handle dynamic calculations
+    if (statData?.use_robot_count) {
+      displayValue = 3; // Current robot count from content/robots
+    } else if (statData?.use_team_count) {
       displayValue = teamMembers.length;
     }
     
     return {
       ...stat,
       icon: iconMap[stat.icon] || FaUsers,
-      displayValue: `${displayValue}${stat.suffix || ''}`
+      displayValue: `${displayValue}${statData?.display_suffix || ''}`,
+      description: statData?.description || ''
     };
   });
   return (

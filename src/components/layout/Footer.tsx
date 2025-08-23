@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FadeIn } from '../animations';
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { emailConfig } from '../../config/email';
 
 interface FooterProps {
   siteSettings?: {
@@ -25,16 +27,38 @@ interface FooterProps {
 
 export default function Footer({ siteSettings }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', topic: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+    
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        topic: formData.topic,
+        message: formData.message,
+        to_email: emailConfig.teamEmail
+      };
+      
+      await emailjs.send(
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        templateParams,
+        emailConfig.publicKey
+      );
+      
+      // Success - reset form
+      setFormData({ name: '', email: '', topic: '', message: '' });
+      alert('Message sent successfully! We\'ll get back to you soon.');
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      alert('Failed to send message. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Static molten particles - using fixed positions and timings (similar to HeroSection)
@@ -119,11 +143,11 @@ export default function Footer({ siteSettings }: FooterProps) {
       </div>
       
       <div className="container mx-auto px-4 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
           
           {/* Brand Section */}
           <FadeIn direction="up" delay={0.1}>
-            <div className="md:col-span-1">
+            <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
                 <motion.div 
                   className="w-12 h-12 relative"
@@ -148,7 +172,14 @@ export default function Footer({ siteSettings }: FooterProps) {
                     </motion.span>
                   ) : (
                     <motion.span 
-                      className="text-accent hover:text-lava transition-all duration-300"
+                      className="text-white font-bold"
+                      style={{
+                        background: 'linear-gradient(135deg, #ff4500 0%, #ff6b35 50%, #ff8c42 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        textShadow: '0 0 10px rgba(255, 69, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.8)',
+                        filter: 'drop-shadow(0 0 8px rgba(255, 69, 0, 0.6))'
+                      }}
                       whileHover={{ scale: 1.05 }}
                     >
                       OBSIDIANS
@@ -263,16 +294,162 @@ export default function Footer({ siteSettings }: FooterProps) {
             </div>
           </FadeIn>
 
-          {/* Quick Links */}
+          {/* Contact Form */}
           <FadeIn direction="up" delay={0.2}>
-            <div>
+            <div className="lg:col-span-1">
+              <motion.h3 
+                className="text-xl font-bold mb-4 inline-block text-white"
+                style={{
+                  background: 'linear-gradient(135deg, #ff4500 0%, #ff6b35 50%, #ff8c42 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '0 0 10px rgba(255, 69, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.8)',
+                  filter: 'drop-shadow(0 0 8px rgba(255, 69, 0, 0.6))'
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Get In Touch
+              </motion.h3>
+              
+              <motion.div
+                className="bg-gradient-to-br from-black/60 via-red-950/40 to-orange-950/30 backdrop-blur-md p-6 rounded-xl border border-orange-500/30 shadow-2xl"
+                style={{
+                  boxShadow: '0 0 30px rgba(255, 69, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                }}
+                whileHover={{
+                  boxShadow: '0 0 40px rgba(255, 69, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                  borderColor: 'rgba(255, 69, 0, 0.5)'
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <motion.form 
+                  id="contact-form"
+                  onSubmit={handleSubmit}
+                  className="space-y-4"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <motion.input
+                      type="text"
+                      placeholder="Name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="px-4 py-3 bg-black/50 border border-orange-500/30 rounded-lg text-white placeholder-gray-300 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 transition-all duration-300 text-sm backdrop-blur-sm"
+                      style={{
+                        boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                      }}
+                      whileFocus={{ 
+                        scale: 1.02,
+                        boxShadow: '0 0 20px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                      }}
+                      required
+                    />
+                    <motion.input
+                      type="email"
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="px-4 py-3 bg-black/50 border border-orange-500/30 rounded-lg text-white placeholder-gray-300 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 transition-all duration-300 text-sm backdrop-blur-sm"
+                      style={{
+                        boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                      }}
+                      whileFocus={{ 
+                        scale: 1.02,
+                        boxShadow: '0 0 20px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                      }}
+                      required
+                    />
+                  </div>
+                  
+                  <motion.select
+                    value={formData.topic}
+                    onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
+                    className="w-full px-4 py-3 bg-black/50 border border-orange-500/30 rounded-lg text-white focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 transition-all duration-300 text-sm backdrop-blur-sm"
+                    style={{
+                      boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                    }}
+                    whileFocus={{ 
+                      scale: 1.02,
+                      boxShadow: '0 0 20px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                    }}
+                    required
+                  >
+                    <option value="" disabled className="bg-gray-900 text-gray-400">Select a topic</option>
+                    <option value="General Inquiry" className="bg-gray-900 text-white">General Inquiry</option>
+                    <option value="Join the Team" className="bg-gray-900 text-white">Join the Team</option>
+                    <option value="Partnership" className="bg-gray-900 text-white">Partnership</option>
+                    <option value="Technical Support" className="bg-gray-900 text-white">Technical Support</option>
+                    <option value="Media & Press" className="bg-gray-900 text-white">Media & Press</option>
+                    <option value="Other" className="bg-gray-900 text-white">Other</option>
+                  </motion.select>
+                  
+                  <motion.textarea
+                    placeholder="Your message..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    rows={5}
+                    className="w-full px-4 py-3 bg-black/50 border border-orange-500/30 rounded-lg text-white placeholder-gray-300 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 transition-all duration-300 resize-none text-sm backdrop-blur-sm"
+                    style={{
+                      boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                    }}
+                    whileFocus={{ 
+                      scale: 1.02,
+                      boxShadow: '0 0 20px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                    }}
+                    required
+                  />
+                  
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-semibold rounded-lg hover:from-orange-500 hover:to-red-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group text-sm shadow-lg"
+                    style={{
+                      boxShadow: '0 4px 15px rgba(255, 69, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                    }}
+                    whileHover={{ 
+                      scale: 1.02,
+                      boxShadow: '0 6px 20px rgba(255, 69, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-1">
+                      {isSubmitting ? (
+                        <>
+                          <motion.div
+                            className="w-3 h-3 border border-white border-t-transparent rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                          Send Message
+                        </>
+                      )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.button>
+                </motion.form>
+              </motion.div>
+            </div>
+          </FadeIn>
+
+          {/* Quick Links */}
+          <FadeIn direction="up" delay={0.3}>
+            <div className="lg:col-span-1">
               <motion.h3 
                 className="text-xl font-bold mb-6 inline-block text-white"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 69, 0, 0.9) 0%, rgba(139, 0, 0, 0.8) 50%, rgba(75, 0, 0, 0.9) 100%)',
+                  background: 'linear-gradient(135deg, #ff4500 0%, #ff6b35 50%, #ff8c42 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
+                  textShadow: '0 0 10px rgba(255, 69, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.8)',
+                  filter: 'drop-shadow(0 0 8px rgba(255, 69, 0, 0.6))'
                 }}
                 whileHover={{ scale: 1.05 }}
               >
@@ -317,97 +494,11 @@ export default function Footer({ siteSettings }: FooterProps) {
               </ul>
             </div>
           </FadeIn>
-
-          {/* Contact Form */}
-          <FadeIn direction="up" delay={0.3}>
-            <div>
-              <motion.h3 
-                className="text-xl font-bold mb-4 inline-block text-white"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 69, 0, 0.9) 0%, rgba(139, 0, 0, 0.8) 50%, rgba(75, 0, 0, 0.9) 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
-                }}
-                whileHover={{ scale: 1.05 }}
-              >
-                Get In Touch
-              </motion.h3>
-              
-              <motion.form 
-                onSubmit={handleSubmit}
-                className="space-y-3"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <motion.input
-                    type="text"
-                    placeholder="Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="px-3 py-2 bg-black/30 border border-red-900/20 rounded-md text-white placeholder-gray-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500/30 transition-all duration-300 text-sm"
-                    whileFocus={{ scale: 1.01 }}
-                    required
-                  />
-                  <motion.input
-                    type="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="px-3 py-2 bg-black/30 border border-red-900/20 rounded-md text-white placeholder-gray-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500/30 transition-all duration-300 text-sm"
-                    whileFocus={{ scale: 1.01 }}
-                    required
-                  />
-                </div>
-                
-                <motion.textarea
-                  placeholder="Message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={2}
-                  className="w-full px-3 py-2 bg-black/30 border border-red-900/20 rounded-md text-white placeholder-gray-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500/30 transition-all duration-300 resize-none text-sm"
-                  whileFocus={{ scale: 1.01 }}
-                  required
-                />
-                
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-2 bg-gradient-to-r from-red-600/80 to-orange-600/80 text-white font-medium rounded-md hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group text-sm"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-1">
-                    {isSubmitting ? (
-                      <>
-                        <motion.div
-                          className="w-3 h-3 border border-white border-t-transparent rounded-full"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                        Send Message
-                      </>
-                    )}
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.button>
-              </motion.form>
-            </div>
-          </FadeIn>
         </div>
 
         {/* Contact Info Row */}
         <FadeIn direction="up" delay={0.4}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 bg-black/20 rounded-2xl border border-red-900/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 p-8 bg-black/20 rounded-2xl border border-red-900/20">
             <motion.div 
               className="flex items-center group"
               whileHover={{ x: 5 }}
@@ -423,10 +514,15 @@ export default function Footer({ siteSettings }: FooterProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
               </motion.div>
-              <span className="text-gray-300 hover:text-white relative group-hover:text-white transition-all duration-300 text-sm">
+              <a 
+                href={`https://maps.google.com/?q=${encodeURIComponent(siteSettings?.address || 'The Forge, Innovation District')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white relative group-hover:text-white transition-all duration-300 text-sm cursor-pointer"
+              >
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                 {siteSettings?.address || 'The Forge, Innovation District'}
-              </span>
+              </a>
             </motion.div>
             
             <motion.div 
@@ -443,13 +539,22 @@ export default function Footer({ siteSettings }: FooterProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
               </motion.div>
-              <a 
-                href={`mailto:${siteSettings?.contactEmail || 'forge@obsidians.com'}`} 
-                className="text-gray-300 hover:text-white relative group-hover:text-white transition-all duration-300 text-sm"
+              <button 
+                onClick={() => {
+                  const contactForm = document.querySelector('#contact-form');
+                  if (contactForm) {
+                    contactForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const emailInput = contactForm.querySelector('input[type="email"]');
+                    if (emailInput) {
+                      setTimeout(() => emailInput.focus(), 500);
+                    }
+                  }
+                }}
+                className="text-gray-300 hover:text-white relative group-hover:text-white transition-all duration-300 text-sm cursor-pointer"
               >
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                 {siteSettings?.contactEmail || 'forge@obsidians.com'}
-              </a>
+              </button>
             </motion.div>
             
             <motion.div 

@@ -14,7 +14,6 @@ collections:
     fields:
       - {label: "Name", name: "name", widget: "string"}
       - {label: "Role", name: "role", widget: "string"}
-      - {label: "Bio", name: "bio", widget: "text"}
       - {label: "Photo", name: "photo", widget: "image"}
       - {label: "Join Date", name: "joinDate", widget: "date"}
       - {label: "Social Links", name: "socialLinks", widget: "object", fields: [
@@ -61,7 +60,6 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Image", name: "image", widget: "image", required: false, media_folder: "/uploads/SPONSORS"}
       - {label: "Website URL", name: "website", widget: "string", required: false}
-      - {label: "Tier", name: "tier", widget: "select", options: ["platinum", "gold", "silver", "bronze"], default: "bronze"}
 
   - name: "settings"
     label: "Site Settings"
@@ -76,12 +74,67 @@ collections:
           - {label: "Contact Email", name: "contactEmail", widget: "string"}
           - {label: "Phone", name: "phone", widget: "string"}
           - {label: "Address", name: "address", widget: "text"}
-          - {label: "Years Of Experience", name: "yearsExperience", widget: "number", value_type: "int"}
-          - {label: "Robots Built", name: "robotsBuilt", widget: "number", value_type: "int"}
-          - {label: "Championships Won", name: "championshipsWon", widget: "number", value_type: "int"}
           - {label: "Social Media", name: "socialMedia", widget: "object", fields: [
               {label: "Facebook", name: "facebook", widget: "string", required: false},
               {label: "Twitter", name: "twitter", widget: "string", required: false},
               {label: "Instagram", name: "instagram", widget: "string", required: false},
               {label: "YouTube", name: "youtube", widget: "string", required: false}
+            ]}
+      - label: "Statistics"
+        name: "statistics"
+        file: "content/settings/statistics.yml"
+        fields:
+          - {label: "Core Statistics", name: "core_stats", widget: "object", fields: [
+              {label: "Robots Built", name: "robots_built", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "string", default: "Dynamic"},
+                {label: "Use Robot Count", name: "use_robot_count", widget: "boolean", default: true},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Championships", name: "championships", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "number", value_type: "int"},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Competitions", name: "competitions", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "number", value_type: "int"},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Team Members", name: "team_members", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "string", default: "Dynamic"},
+                {label: "Use Team Count", name: "use_team_count", widget: "boolean", default: true},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: ""},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Years Experience", name: "years_experience", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "number", value_type: "int"},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Projects Completed", name: "projects_completed", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "number", value_type: "int"},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]},
+              {label: "Innovations Created", name: "innovations_created", widget: "object", fields: [
+                {label: "Value", name: "value", widget: "number", value_type: "int"},
+                {label: "Display Suffix", name: "display_suffix", widget: "string", default: "+"},
+                {label: "Description", name: "description", widget: "string"}
+              ]}
+            ]}
+          - {label: "About Section Statistics", name: "about_achievements", widget: "list", fields: [
+              {label: "Icon", name: "icon", widget: "select", options: ["FaRocket", "FaTrophy", "FaCog", "FaUsers", "FaLightbulb"]},
+              {label: "Stat Key", name: "stat_key", widget: "select", options: ["robots_built", "championships", "competitions", "team_members", "years_experience", "projects_completed", "innovations_created"]},
+              {label: "Label", name: "label", widget: "string"}
+            ]}
+          - {label: "Team Section Statistics", name: "team_stats", widget: "list", fields: [
+              {label: "Icon", name: "icon", widget: "select", options: ["FaRocket", "FaTrophy", "FaCog", "FaUsers", "FaLightbulb"]},
+              {label: "Stat Key", name: "stat_key", widget: "select", options: ["robots_built", "championships", "competitions", "team_members", "years_experience", "projects_completed", "innovations_created"]},
+              {label: "Label", name: "label", widget: "string"}
+            ]}
+          - {label: "Hero Section Statistics", name: "hero_stats", widget: "list", fields: [
+              {label: "Icon", name: "icon", widget: "select", options: ["FaRocket", "FaTrophy", "FaCog", "FaUsers", "FaLightbulb"]},
+              {label: "Stat Key", name: "stat_key", widget: "select", options: ["robots_built", "championships", "competitions", "team_members", "years_experience", "projects_completed", "innovations_created"]},
+              {label: "Label", name: "label", widget: "string"}
             ]}

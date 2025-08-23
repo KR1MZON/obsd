@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
       <Header siteSettings={siteSettings}/>
-      <HeroSection siteSettings={siteSettings} />
+      <HeroSection siteSettings={siteSettings} statistics={statistics} />
       <AboutSection siteSettings={siteSettings} statistics={statistics} />
       <TeamSection teamMembers={teamMembers} statistics={statistics} />
       <RobotsSection robots={robots} siteSettings={siteSettings} />
