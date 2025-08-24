@@ -84,7 +84,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
     >
       {/* Larger Artistic Card Container */}
       <motion.div 
-        className="relative w-80 h-96 bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-slate-700/60 hover:border-orange-500/50 transition-all duration-150 group-hover:shadow-orange-500/30 overflow-hidden"
+        className="relative w-80 h-[420px] bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-slate-700/60 hover:border-orange-500/50 transition-all duration-150 group-hover:shadow-orange-500/30 overflow-hidden"
         whileHover={{ scale: 1.05, rotateY: 3, rotateX: 2 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >

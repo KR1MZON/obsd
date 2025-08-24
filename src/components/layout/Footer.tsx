@@ -143,11 +143,11 @@ export default function Footer({ siteSettings }: FooterProps) {
       </div>
       
       <div className="container mx-auto px-4 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
           
           {/* Brand Section */}
           <FadeIn direction="up" delay={0.1}>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-1">
               <div className="flex items-center space-x-3 mb-4">
                 <motion.div 
                   className="w-12 h-12 relative"
@@ -476,7 +476,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                             element.scrollIntoView({ behavior: 'smooth' });
                           }
                         }}
-                        className="text-gray-300 hover:text-white relative group flex items-center w-full text-left"
+                        className="text-gray-300 hover:text-white relative group flex items-center w-full text-left text-base"
                       >
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-orange-500 group-hover:w-full transition-all duration-300"></span>
                         <span className="group-hover:translate-x-2 transition-transform duration-300">{link.name}</span>
