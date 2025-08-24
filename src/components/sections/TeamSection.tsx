@@ -374,12 +374,9 @@ export default function TeamSection({ teamMembers, statistics }: TeamSectionProp
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  // Fallback to email if no contact section
-                  window.location.href = 'mailto:contact@robotwarriors.com?subject=Join Our Team';
+                const footerSection = document.getElementById('footer');
+                if (footerSection) {
+                  footerSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
             >
